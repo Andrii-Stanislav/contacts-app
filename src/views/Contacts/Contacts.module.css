@@ -1,0 +1,18 @@
+.mainDiv {
+  padding: 10px;
+}
+
+.container {
+  position: relative;
+  max-width: 400px;
+  margin: 5px auto;
+  padding: 40px 15px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 2px 2px grey;
+  overflow: hidden;
+}
+
+.title {
+  margin-top: 0;
+  font-size: 50px;
+}
