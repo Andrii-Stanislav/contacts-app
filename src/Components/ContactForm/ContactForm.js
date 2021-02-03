@@ -21,12 +21,11 @@ class ContactForm extends Component {
 
     if (this.verifyNewContact(this.state)) {
       this.props.onSubmit({ ...this.state });
+      this.setState({
+        name: '',
+        number: '',
+      });
     }
-
-    this.setState({
-      name: '',
-      number: '',
-    });
   };
 
   verifyNewContact = ({ name: newName, number: newNumber }) => {

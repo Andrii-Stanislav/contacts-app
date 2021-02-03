@@ -5,8 +5,10 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
 import styles from './EditModal.module.css';
+import { CSSTransition } from 'react-transition-group';
 
 import EdtiContactForm from '../EdtiContactForm';
+import Alert from '../../Components/Alert';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -25,6 +27,7 @@ const useStyles = makeStyles(theme => ({
 function TransitionsModal({ id, name, number }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [alert, setAlert] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -32,6 +35,11 @@ function TransitionsModal({ id, name, number }) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const showAlert = () => {
+    setAlert(true);
+    setTimeout(() => setAlert(false), 2000);
   };
 
   return (
@@ -59,7 +67,17 @@ function TransitionsModal({ id, name, number }) {
               id={id}
               name={name}
               number={number}
+              showAlert={showAlert}
             />
+            <CSSTransition
+              in={alert}
+              appear={true}
+              timeout={250}
+              classNames="fade"
+              unmountOnExit
+            >
+              <Alert text="Contact is already exist" />
+            </CSSTransition>
           </div>
         </Fade>
       </Modal>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { getContacts } from '../../redux/contacts/contacts-selectors';
 import { editContact } from '../../redux/contacts/contacts-operations';
 
 import styles from './EdtiContactForm.module.css';
@@ -24,12 +25,29 @@ class EdtiContactForm extends Component {
   editContact = event => {
     event.preventDefault();
 
-    this.props.onEdit({ ...this.state });
-    this.props.onCloseModal();
-    this.setState({
-      name: '',
-      number: '',
+    if (this.verifyNewContact(this.state)) {
+      this.props.onEdit({ ...this.state });
+      this.props.onCloseModal();
+      this.setState({
+        name: '',
+        number: '',
+      });
+    }
+  };
+
+  verifyNewContact = ({ name: newName, number: newNumber }) => {
+    let verify = true;
+    this.props.contacts.forEach(({ name, number }) => {
+      if (
+        name.toLowerCase() === newName.toLowerCase() ||
+        newNumber === number
+      ) {
+        this.props.showAlert();
+        verify = false;
+      }
     });
+
+    return verify;
   };
 
   render() {
@@ -69,8 +87,12 @@ class EdtiContactForm extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  contacts: getContacts(state),
+});
+
 const mapDispatchToProps = dispatch => ({
   onEdit: contact => dispatch(editContact(contact)),
 });
 
-export default connect(null, mapDispatchToProps)(EdtiContactForm);
+export default connect(mapStateToProps, mapDispatchToProps)(EdtiContactForm);
