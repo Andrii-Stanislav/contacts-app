@@ -5,7 +5,7 @@ import styles from './HomePage.module.css';
 
 import gif from '../../images/homePage.gif';
 
-const HomePage = () => {
+function HomePage() {
   return (
     <CSSTransition
       in={true}
@@ -22,6 +22,6 @@ const HomePage = () => {
       </div>
     </CSSTransition>
   );
-};
+}
 
 export default HomePage;
