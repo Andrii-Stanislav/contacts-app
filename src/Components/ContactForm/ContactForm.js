@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { getContacts } from '../../redux/contacts/contacts-selectors';
 import { createContact } from '../../redux/contacts/contacts-operations';
 
 import styles from './ContactForm.module.css';
 
-function ContactForm({ contacts, showAlert, onSubmit }) {
+export default function ContactForm({ showAlert }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
   const heandleInputName = event => {
     setName(event.currentTarget.value);
@@ -36,7 +39,7 @@ function ContactForm({ contacts, showAlert, onSubmit }) {
     event.preventDefault();
 
     if (verifyNewContact({ name, number })) {
-      onSubmit({ name, number });
+      dispatch(createContact({ name, number }));
       setName('');
       setNumber('');
     }
@@ -76,13 +79,3 @@ function ContactForm({ contacts, showAlert, onSubmit }) {
     </form>
   );
 }
-
-const mapStateToProps = state => ({
-  contacts: getContacts(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  onSubmit: contact => dispatch(createContact(contact)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

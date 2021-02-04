@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import UserNav from '../UserNav';
 
@@ -9,7 +9,9 @@ import { getIsAuthenticated } from '../../redux/auth/auth-selectors';
 import styles from './AppBar.module.css';
 import routes from '../../routes';
 
-const AppBarr = ({ isAuthenticated }) => {
+export default function AppBarr() {
+  const isAuthenticated = useSelector(getIsAuthenticated);
+
   return (
     <div className={styles.header}>
       <nav className={styles.nav}>
@@ -64,10 +66,4 @@ const AppBarr = ({ isAuthenticated }) => {
       </nav>
     </div>
   );
-};
-
-const mapStateToProps = state => ({
-  isAuthenticated: getIsAuthenticated(state),
-});
-
-export default connect(mapStateToProps)(AppBarr);
+}

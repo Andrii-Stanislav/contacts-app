@@ -2,7 +2,7 @@ import React from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { getIsLoadingContacts } from '../../redux/contacts/contacts-selectors';
 import { getIsLoadingAuth } from '../../redux/auth/auth-selectors';
@@ -14,8 +14,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Loading({ loadingContacts, loadingAuth }) {
+export default function Loading() {
   const classes = useStyles();
+
+  const loadingContacts = useSelector(getIsLoadingContacts);
+  const loadingAuth = useSelector(getIsLoadingAuth);
 
   return (
     <>
@@ -36,10 +39,3 @@ function Loading({ loadingContacts, loadingAuth }) {
     </>
   );
 }
-
-const mapStateToProps = state => ({
-  loadingContacts: getIsLoadingContacts(state),
-  loadingAuth: getIsLoadingAuth(state),
-});
-
-export default connect(mapStateToProps)(Loading);

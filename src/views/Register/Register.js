@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
 import styles from './Register.module.css';
 import { registerUser } from '../../redux/auth/auth-operations';
 
-function Register({ onRegister }) {
+export default function Register({ onRegister }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
 
   const heandleInputName = event => {
     setName(event.currentTarget.value);
@@ -22,7 +24,7 @@ function Register({ onRegister }) {
 
   const heandleRegisterUser = event => {
     event.preventDefault();
-    onRegister({ name, email, password });
+    dispatch(registerUser({ name, email, password }));
     setName('');
     setEmail('');
     setPassword('');
@@ -80,9 +82,3 @@ function Register({ onRegister }) {
     </CSSTransition>
   );
 }
-
-const mapDispatchToProps = {
-  onRegister: registerUser,
-};
-
-export default connect(null, mapDispatchToProps)(Register);

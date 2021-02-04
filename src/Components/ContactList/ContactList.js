@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { getFilteredContacts } from '../../redux/contacts/contacts-selectors';
@@ -12,7 +11,14 @@ import EditModal from '../EditModal';
 import styles from './ContactList.module.css';
 import '../../styles/animation.css';
 
-const ContactList = ({ contacts, deleteOnClick }) => {
+export default function ContactList() {
+  const contacts = useSelector(getFilteredContacts);
+  const dispatch = useDispatch();
+
+  const deleteOnClick = event => {
+    dispatch(deleteContact(event.target.id));
+  };
+
   return (
     <>
       <h2 className={styles.title}>Contacts</h2>
@@ -36,19 +42,4 @@ const ContactList = ({ contacts, deleteOnClick }) => {
       </TransitionGroup>
     </>
   );
-};
-
-ContactList.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  deleteOnClick: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
-  contacts: getFilteredContacts(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  deleteOnClick: e => dispatch(deleteContact(e.target.id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+}

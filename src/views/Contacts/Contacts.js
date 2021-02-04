@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ContactForm from '../../Components/ContactForm';
 import ContactList from '../../Components/ContactList';
@@ -13,11 +13,15 @@ import styles from './Contacts.module.css';
 import { fetchContacts } from '../../redux/contacts/contacts-operations';
 import { getContactsLength } from '../../redux/contacts/contacts-selectors';
 
-function Contacts({ fetchContacts, contactsLength }) {
+export default function Contacts() {
   const [alert, setAlert] = useState(false);
+
+  const contactsLength = useSelector(getContactsLength);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    fetchContacts();
-  }, [fetchContacts]);
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const showAlert = () => {
     setAlert(true);
@@ -58,13 +62,3 @@ function Contacts({ fetchContacts, contactsLength }) {
     </>
   );
 }
-
-const mapStateToProps = state => ({
-  contactsLength: getContactsLength(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchContacts: () => dispatch(fetchContacts()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Contacts);

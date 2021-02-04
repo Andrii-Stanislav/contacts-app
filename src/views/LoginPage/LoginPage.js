@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import styles from './LoginPage.module.css';
 import { logIn } from '../../redux/auth/auth-operations';
 
-function LoginPage({ onLogin }) {
+export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
 
   const heandleInputEmail = event => {
     setEmail(event.currentTarget.value);
@@ -18,7 +20,7 @@ function LoginPage({ onLogin }) {
 
   const heandleLoginUser = event => {
     event.preventDefault();
-    onLogin({ email, password });
+    dispatch(logIn({ email, password }));
     setEmail('');
     setPassword('');
   };
@@ -63,9 +65,3 @@ function LoginPage({ onLogin }) {
     </CSSTransition>
   );
 }
-
-const mapDispatchToProps = {
-  onLogin: logIn,
-};
-
-export default connect(null, mapDispatchToProps)(LoginPage);
