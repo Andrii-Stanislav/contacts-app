@@ -1,7 +1,6 @@
 import React, { useEffect, Suspense, lazy } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-// import { CSSTransition } from 'react-transition-group';
 
 import routes from './routes';
 import { getCurrentUser } from './redux/auth/auth-operations';
@@ -11,6 +10,7 @@ import PublicRoute from './Components/PublicRoute';
 import AppBar from './Components/AppBar';
 import Container from './Components/Container';
 import Loading from './Components/Loading';
+import Pnotify from './Components/Pnotify';
 
 const HomePage = lazy(() =>
   import('./views/HomePage' /* webpackChunkName: "home-page-view" */),
@@ -60,6 +60,7 @@ export default function App() {
           </Switch>
         </Suspense>
         <Loading />
+        <Pnotify />
       </Container>
     </>
   );

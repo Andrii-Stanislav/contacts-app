@@ -69,6 +69,7 @@ export default function Register({ onRegister }) {
             className={styles.input}
             name="password"
             type="password"
+            minLength="7"
             placeholder="Stong password"
             value={password}
             onChange={heandleInputPassword}

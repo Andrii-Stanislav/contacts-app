@@ -60,7 +60,7 @@ export default function ContactForm({ showAlert }) {
         />
       </label>
       <label className={styles.label}>
-        Phone <span className={styles.example}>(000-00-00)</span>:
+        Phone <span className={styles.example}>000-00-00</span>:
         <input
           className={styles.input}
           name="number"

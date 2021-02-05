@@ -13,6 +13,7 @@ import {
   getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
+  removeAuthError,
 } from './auth-actions';
 
 const initialUserState = { name: null, email: null };
@@ -40,12 +41,16 @@ const token = createReducer(null, {
   [logoutSuccess]: () => null,
 });
 
-const errorFunc = (_, { payload }) => payload;
+const errorFunc = (_, { payload }) => {
+  console.dir(payload.response.statusText);
+  return payload.message;
+};
 const error = createReducer(null, {
   [registerError]: errorFunc,
   [loginError]: errorFunc,
   [logoutError]: errorFunc,
-  [getCurrentUserError]: errorFunc,
+  [getCurrentUserError]: () => null,
+  [removeAuthError]: () => null,
 });
 
 const loading = createReducer(false, {
