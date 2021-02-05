@@ -17,9 +17,7 @@ export default function Pnotify() {
 
   function openPnotify() {
     showAlert();
-    setTimeout(() => {
-      dispatch(removeAuthError());
-    }, 0);
+    dispatch(removeAuthError());
   }
 
   function showAlert() {

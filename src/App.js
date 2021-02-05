@@ -19,7 +19,7 @@ const Contacts = lazy(() =>
   import('./views/Contacts' /* webpackChunkName: "contacts-view" */),
 );
 const LoginPage = lazy(() =>
-  import('./views/LoginPage' /* webpackChunkName: "loading-view" */),
+  import('./views/LoginPage' /* webpackChunkName: "login-view" */),
 );
 const Register = lazy(() =>
   import('./views/Register' /* webpackChunkName: "register-view" */),
