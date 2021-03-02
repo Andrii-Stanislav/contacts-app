@@ -17,12 +17,12 @@ export default function Filter() {
   return (
     <div className={styles.container}>
       <label className={styles.label}>
-        Filter:
         <input
           className={styles.input}
           type="text"
           value={value}
           onChange={onChange}
+          placeholder="Filter"
         />
       </label>
     </div>
