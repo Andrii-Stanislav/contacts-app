@@ -39,6 +39,10 @@ export default function Register({ onRegister }) {
       unmountOnExit
     >
       <form className={styles.form} onSubmit={heandleRegisterUser}>
+        <p>
+          Don't reuse your bank password because it's a training project and I
+          wasn't too worried about security.
+        </p>
         <label className={styles.label}>
           Login
           <input

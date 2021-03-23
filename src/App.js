@@ -1,7 +1,7 @@
 import React, { useEffect, Suspense, lazy } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import routes from './routes';
 import { getCurrentUser } from './redux/auth/auth-operations';
@@ -34,6 +34,12 @@ const StyledApp = styled.div`
   transition: all 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
 `;
 
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: ${props => (props.darkTheme ? '#464646' : '#e6e6e6')};
+  }
+`;
+
 export default function App() {
   const dispatch = useDispatch();
   const darkTheme = useSelector(getdarkTheme);
@@ -44,6 +50,7 @@ export default function App() {
 
   return (
     <StyledApp darkTheme={darkTheme}>
+      <GlobalStyle darkTheme={darkTheme} />
       <AppBar />
       <Container>
         <ThemeSwitch />
